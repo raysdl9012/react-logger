@@ -1,8 +1,6 @@
-# react-looger 🐞
+# ReactLooger 🐞
 
 A professional, high-performance visual logging system for Ionic React applications. Monitor logs, errors, and JSON objects in real-time with a beautiful floating UI.
-
-![Logger Preview](https://github.com/your-repo/react-looger/raw/main/assets/preview.png)
 
 ## Features
 
