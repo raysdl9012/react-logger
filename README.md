@@ -1,4 +1,4 @@
-# ReactLooger 🐞
+# ReactLoggerApp 🐞
 
 A professional, high-performance visual logging system for Ionic React applications. Monitor logs, errors, and JSON objects in real-time with a beautiful floating UI.
 
@@ -16,9 +16,9 @@ A professional, high-performance visual logging system for Ionic React applicati
 ## Installation
 
 ```bash
-npm install react-looger
+npm install react-logger-app
 # or
-yarn add react-looger
+yarn add react-logger-app
 ```
 
 ## Setup
@@ -26,7 +26,7 @@ yarn add react-looger
 Wrap your application with the `LoggerProvider` and add the `LoggerViewer` component (ideally in your `App.tsx`).
 
 ```tsx
-import { LoggerProvider, LoggerViewer } from 'react-looger';
+import { LoggerProvider, LoggerViewer } from 'react-logger-app';
 
 const App: React.FC = () => (
   <LoggerProvider config={{ persistence: true, maxLogs: 1000 }}>
@@ -43,7 +43,7 @@ const App: React.FC = () => (
 Use the `useLogger` hook anywhere in your components.
 
 ```tsx
-import { useLogger } from 'react-looger';
+import { useLogger } from 'react-logger-app';
 
 const MyComponent: React.FC = () => {
   const { debug, error, object } = useLogger();

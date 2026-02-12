@@ -33,7 +33,7 @@ export const LogPanel: React.FC = () => {
         <div className="liql-panel" style={{ right: '20px', bottom: '20px', width: '440px', height: '680px' }}>
             <div className="liql-panelHeader">
                 <div className="liql-titleGroup">
-                    <span className="liql-title">ReactLooger console [{state.logs.length}]</span>
+                    <span className="liql-title">ReactLoggerApp console [{state.logs.length}]</span>
                 </div>
                 <div className="liql-controls">
                     <button className="liql-btnAction" onClick={exportLogs} title="Export JSON">📥</button>

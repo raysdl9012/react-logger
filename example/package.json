@@ -13,7 +13,7 @@
         "react-dom": "^18.2.0",
         "react-virtuoso": "^4.7.0",
         "idb": "^8.0.0",
-        "react-looger": "file:.."
+        "react-logger-app": "file:.."
     },
     "devDependencies": {
         "@types/react": "^18.2.0",

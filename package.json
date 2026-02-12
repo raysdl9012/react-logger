@@ -1,5 +1,5 @@
 {
-  "name": "react-looger",
+  "name": "react-logger",
   "version": "1.0.0",
   "description": "A professional visual logging system for Ionic React applications.",
   "main": "./dist/index.js",
@@ -22,8 +22,19 @@
     "debug",
     "console"
   ],
-  "author": "Antigravity",
+  "author": "ReactLooger Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raysdl9012/react-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/raysdl9012/react-logger/issues"
+  },
+  "homepage": "https://github.com/raysdl9012/react-logger#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
