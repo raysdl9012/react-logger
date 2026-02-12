@@ -1,0 +1,297 @@
+:root {
+  --liql-primary: #3498db;
+  --liql-primary-glow: rgba(52, 152, 219, 0.5);
+  --liql-error: #ff4d4d;
+  --liql-error-glow: rgba(255, 77, 77, 0.4);
+  --liql-object: #00ff88;
+  --liql-object-glow: rgba(0, 255, 136, 0.4);
+
+  --liql-glass-bg: rgba(15, 23, 42, 0.7);
+  --liql-glass-border: rgba(255, 255, 255, 0.1);
+  --liql-glass-edge: rgba(255, 255, 255, 0.05);
+
+  --liql-text-main: #f8fafc;
+  --liql-text-muted: #94a3b8;
+
+  --liql-font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.liql-floatingButton {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent),
+    linear-gradient(135deg, var(--liql-primary), #2980b9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 15px var(--liql-primary-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 10000;
+  border: 1px solid var(--liql-glass-border);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 26px;
+  color: white;
+  user-select: none;
+  touch-action: none;
+}
+
+.liql-floatingButton:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 25px var(--liql-primary-glow);
+}
+
+.liql-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--liql-error);
+  color: white;
+  border-radius: 12px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #0f172a;
+  box-shadow: 0 0 10px var(--liql-error-glow);
+}
+
+.liql-panel {
+  position: fixed;
+  background: var(--liql-glass-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px var(--liql-glass-edge);
+  border: 1px solid var(--liql-glass-border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10001;
+  overflow: hidden;
+  font-family: var(--liql-font-family);
+  color: var(--liql-text-main);
+  animation: liql-slideUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.liql-panelHeader {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--liql-glass-border);
+}
+
+.liql-title {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--liql-text-muted);
+}
+
+.liql-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.liql-btnAction {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--liql-glass-border);
+  color: var(--liql-text-main);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.liql-btnAction:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.liql-filterBar {
+  padding: 12px 20px;
+  display: flex;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  align-items: center;
+}
+
+.liql-searchInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--liql-glass-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: white;
+  font-size: 13px;
+}
+
+.liql-searchInput:focus {
+  outline: none;
+  border-color: var(--liql-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.liql-selectFilter {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--liql-glass-border);
+  border-radius: 10px;
+  padding: 8px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.liql-logListContainer {
+  flex: 1;
+  padding: 10px;
+}
+
+.liql-logItem {
+  margin-bottom: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--liql-glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liql-logItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.01);
+}
+
+.liql-logItem-debug {
+  border-left: 4px solid var(--liql-primary);
+}
+
+.liql-logItem-error {
+  border-left: 4px solid var(--liql-error);
+  box-shadow: inset 0 0 15px var(--liql-error-glow);
+}
+
+.liql-logItem-object {
+  border-left: 4px solid var(--liql-object);
+  box-shadow: inset 0 0 15px var(--liql-object-glow);
+}
+
+.liql-logMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.liql-statusTag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.liql-tag-debug {
+  background: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+}
+
+.liql-tag-error {
+  background: rgba(255, 77, 77, 0.2);
+  color: #ff4d4d;
+}
+
+.liql-tag-object {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.liql-logTime {
+  color: var(--liql-text-muted);
+}
+
+.liql-logContent {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+.liql-expandedContent {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  border: 1px solid var(--liql-glass-border);
+  color: #a5f3fc;
+  overflow-x: auto;
+}
+
+.liql-footerActions {
+  padding: 14px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--liql-glass-border);
+}
+
+.liql-storageInfo {
+  font-size: 10px;
+  color: var(--liql-text-muted);
+}
+
+.liql-btnClose {
+  background: linear-gradient(135deg, var(--liql-primary), #2980b9);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--liql-primary-glow);
+}
+
+@keyframes liql-slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .liql-panel {
+    width: 94% !important;
+    height: 85% !important;
+    bottom: 3% !important;
+    right: 3% !important;
+    left: 3% !important;
+    border-radius: 24px;
+  }
+}
