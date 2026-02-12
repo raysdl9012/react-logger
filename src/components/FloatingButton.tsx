@@ -69,7 +69,6 @@ export const FloatingButton: React.FC = () => {
             onClick={handleClick}
             aria-label="Open Logger"
         >
-            🐞
             {state.unreadCount > 0 && (
                 <div className="liql-badge">{state.unreadCount}</div>
             )}

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useLoggerContext } from '../context/LoggerContext';
-import { LogEntry, LogLevel } from '../types';
+import { Logger } from '../Logger';
 
 /**
  * Main hook to interact with the Liquid Glass Logger.
@@ -18,50 +18,37 @@ import { LogEntry, LogLevel } from '../types';
  * ```
  */
 export const useLogger = () => {
-    const { state, dispatch, isPanelOpen } = useLoggerContext();
-
-    const addLog = useCallback((level: LogLevel, message: string, extra?: { title?: string, data?: any, stack?: string }) => {
-        const log: LogEntry = {
-            id: Math.random().toString(36).substring(2, 9),
-            level,
-            message,
-            timestamp: new Date().toISOString(),
-            ...extra
-        };
-
-        dispatch({ type: 'ADD_LOG', log: log });
-        state.config.onLogAdded?.(log);
-    }, [dispatch, state.config]);
+    const { state } = useLoggerContext();
 
     /**
      * Log a debug message (Blue neon)
      */
-    const debug = useCallback((message: string) => addLog('DEBUG', message), [addLog]);
+    const debug = useCallback((message: string, title?: string) => {
+        Logger.debug(message, title);
+    }, []);
 
     /**
      * Log an error. If an Error object is passed, it automatically captures the stack trace.
      * (Red neon)
      */
     const error = useCallback((err: string | Error, title?: string) => {
-        const message = err instanceof Error ? err.message : err;
-        const stack = err instanceof Error ? err.stack : undefined;
-        addLog('ERROR', message, { title: title || 'Error', stack });
-    }, [addLog]);
+        Logger.error(err, title);
+    }, []);
 
     /**
      * Log a data object for inspection.
      * (Green neon)
      */
     const object = useCallback((data: any, title?: string) => {
-        addLog('OBJECT', 'Object visualization', { title: title || 'Data Object', data });
-    }, [addLog]);
+        Logger.object(data, title);
+    }, []);
 
     /**
      * Clears all logs from the current session and persistent storage.
      */
     const clear = useCallback(() => {
-        dispatch({ type: 'CLEAR_LOGS' });
-    }, [dispatch]);
+        Logger.clear();
+    }, []);
 
     /**
      * Exports all logs as a JSON file download.

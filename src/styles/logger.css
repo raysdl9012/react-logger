@@ -1,6 +1,6 @@
 :root {
-  --liql-primary: #3498db;
-  --liql-primary-glow: rgba(52, 152, 219, 0.5);
+  --liql-primary: #6b21a8;
+  --liql-primary-glow: rgba(107, 33, 168, 0.5);
   --liql-error: #ff4d4d;
   --liql-error-glow: rgba(255, 77, 77, 0.4);
   --liql-object: #00ff88;
@@ -18,11 +18,11 @@
 
 .liql-floatingButton {
   position: fixed;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent),
-    linear-gradient(135deg, var(--liql-primary), #2980b9);
+    linear-gradient(135deg, #6b21a8, #4c1d95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
@@ -287,11 +287,11 @@
 
 @media (max-width: 600px) {
   .liql-panel {
-    width: 94% !important;
-    height: 85% !important;
-    bottom: 3% !important;
-    right: 3% !important;
-    left: 3% !important;
-    border-radius: 24px;
+    width: 100% !important;
+    height: 100% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    border-radius: 0;
   }
 }

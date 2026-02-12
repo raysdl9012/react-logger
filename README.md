@@ -63,6 +63,30 @@ const MyComponent: React.FC = () => {
 };
 ```
 
+### Usage in TypeScript Classes
+
+You can also use the logger outside of React components (e.g., in services, helpers, or business logic classes).
+
+```tsx
+import { Logger } from 'react-logger-app';
+
+class MyService {
+  doWork() {
+    Logger.debug('Starting work...', 'MyService');
+    
+    try {
+      // Logic
+      Logger.object({ status: 'ok' }, 'Service Result');
+    } catch (e) {
+      Logger.error(e as Error);
+    }
+  }
+}
+```
+
+> [!NOTE]
+> Logs sent via `Logger` will be buffered if the `LoggerProvider` is not yet mounted and will be flushed as soon as the UI is ready.
+
 ### Configuration Options
 
 | Option | Type | Default | Description |

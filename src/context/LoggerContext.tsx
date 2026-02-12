@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef } from 'react';
 import { LogEntry, LogLevel, LoggerConfig, StorageDriver } from '../types';
 import { getStorageDriver } from '../storage';
+import { Logger } from '../Logger';
 
 interface LoggerState {
     logs: LogEntry[];
@@ -36,7 +37,7 @@ function loggerReducer(state: LoggerState, action: LoggerAction): LoggerState {
             };
         }
         case 'SET_LOGS':
-            return { ...state, logs: action.logs };
+            return { ...state, logs: [...state.logs, ...action.logs].slice(0, state.config.maxLogs) };
         case 'CLEAR_LOGS':
             return { ...state, logs: [], unreadCount: 0 };
         case 'SET_CONFIG':
@@ -76,8 +77,10 @@ export const LoggerProvider: React.FC<{ children: React.ReactNode; config?: Logg
     const [isPanelOpen, setIsPanelOpen] = React.useState(false);
     const storageRef = useRef<StorageDriver | null>(null);
 
-    // Initialize storage driver
+    // Initialize storage driver and Logger singleton
     useEffect(() => {
+        Logger._setDispatcher(dispatch, state.config.onLogAdded);
+
         if (state.config.persistence) {
             storageRef.current = getStorageDriver(state.config.persistenceDriver || 'localStorage');
             storageRef.current.load().then((loadedLogs) => {
