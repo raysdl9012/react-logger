@@ -1,5 +1,5 @@
 {
-  "name": "react-logger",
+  "name": "react-logger-app",
   "version": "1.0.0",
   "description": "A professional visual logging system for Ionic React applications.",
   "main": "./dist/index.js",
