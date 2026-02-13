@@ -1,3 +1,4 @@
+import './polyfills';
 import './styles/logger.css';
 export * from './types';
 export * from './hooks/useLogger';
