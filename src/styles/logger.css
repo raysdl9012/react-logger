@@ -18,6 +18,8 @@
 
 .liql-floatingButton {
   position: fixed;
+  right: 20px;
+  bottom: 20px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -31,7 +33,7 @@
   align-items: center;
   justify-content: center;
   cursor: grab;
-  z-index: 10000;
+  z-index: 99999;
   border: 1px solid var(--liql-glass-border);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-size: 26px;
@@ -76,7 +78,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  z-index: 10001;
+  z-index: 100000;
   overflow: hidden;
   font-family: var(--liql-font-family);
   color: var(--liql-text-main);
