@@ -78,7 +78,11 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  z-index: 100000;
+  width: 440px;
+  height: 680px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999999;
   overflow: hidden;
   font-family: var(--liql-font-family);
   color: var(--liql-text-main);
@@ -296,5 +300,8 @@
     left: 0 !important;
     border-radius: 0;
     animation: none;
+    background: #0f172a !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }

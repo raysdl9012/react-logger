@@ -30,7 +30,7 @@ export const LogPanel: React.FC = () => {
     if (!state) return null;
 
     return (
-        <div className="liql-panel" style={{ right: '20px', bottom: '20px', width: '440px', height: '680px' }}>
+        <div className="liql-panel">
             <div className="liql-panelHeader">
                 <div className="liql-titleGroup">
                     <span className="liql-title">ReactLoggerApp console [{state.logs.length}]</span>
