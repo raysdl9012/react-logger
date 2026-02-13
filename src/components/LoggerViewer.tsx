@@ -13,7 +13,7 @@ export const LoggerViewer: React.FC = () => {
 
     return (
         <>
-            <FloatingButton />
+            {!isPanelOpen && <FloatingButton />}
             {isPanelOpen && <LogPanel />}
         </>
     );
