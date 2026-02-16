@@ -82,4 +82,21 @@ describe('LogItem Component', () => {
 
         expect(getByText(/Error parsing object/i)).not.toBeNull();
     });
+
+    it('should copy text to clipboard', async () => {
+        const writeTextMock = jest.fn().mockResolvedValue(undefined);
+        Object.assign(navigator, {
+            clipboard: {
+                writeText: writeTextMock,
+            },
+        });
+
+        const { getByTitle, findByText } = render(<LogItem log={mockLog} />);
+        const copyBtn = getByTitle(/Copy to clipboard/i);
+
+        fireEvent.click(copyBtn);
+
+        expect(writeTextMock).toHaveBeenCalledWith('Test message');
+        expect(await findByText('✅')).not.toBeNull();
+    });
 });

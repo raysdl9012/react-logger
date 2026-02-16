@@ -16,10 +16,31 @@ interface LogItemProps {
 
 export const LogItem: React.FC<LogItemProps> = ({ log }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     const formatTime = (isoString: string) => {
         const date = new Date(isoString);
         return date.toTimeString().split(' ')[0];
+    };
+
+    const handleCopy = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        let textToCopy = log.message;
+
+        if (log.data) {
+            try {
+                textToCopy = JSON.stringify(log.data, null, 2);
+            } catch (err) {
+                console.error('Failed to stringify log data for copy', err);
+            }
+        } else if (log.stack) {
+            textToCopy = `${log.message}\n\nStack Trace:\n${log.stack}`;
+        }
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
     };
 
     const renderJson = (data: any) => {
@@ -51,10 +72,30 @@ export const LogItem: React.FC<LogItemProps> = ({ log }) => {
             onClick={() => setIsExpanded(!isExpanded)}
         >
             <div className="liql-logMeta">
-                <span className={`liql-statusTag liql-tag-${levelClass}`}>
-                    {getIcon(log.level)} {log.level}
-                </span>
-                <span className="liql-logTime">{formatTime(log.timestamp)}</span>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <span className={`liql-statusTag liql-tag-${levelClass}`}>
+                        {getIcon(log.level)} {log.level}
+                    </span>
+                    <span className="liql-logTime">{formatTime(log.timestamp)}</span>
+                </div>
+                <button
+                    className="liql-btnCopy"
+                    onClick={handleCopy}
+                    title="Copy to clipboard"
+                    style={{
+                        background: 'transparent',
+                        border: 'none',
+                        color: 'var(--liql-foreground)',
+                        opacity: 0.6,
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    {copied ? '✅' : '📋'}
+                </button>
             </div>
             <div className="liql-logContent">
                 {log.title && <strong style={{ color: 'var(--liql-primary)' }}>{log.title}: </strong>}
