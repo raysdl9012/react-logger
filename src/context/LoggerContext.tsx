@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright (c) 2026 Reinner Steven Daza Leiva
+ * Contact: https://reivium.com/
+ * 
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import React, { createContext, useContext, useReducer, useEffect, useCallback, useRef } from 'react';
 import { LogEntry, LogLevel, LoggerConfig, StorageDriver } from '../types';
 import { getStorageDriver } from '../storage';
@@ -34,10 +43,15 @@ function loggerReducer(state: LoggerState, action: LoggerAction): LoggerState {
             return {
                 ...state,
                 logs: newLogs,
+                unreadCount: state.unreadCount + 1,
             };
         }
         case 'SET_LOGS':
-            return { ...state, logs: [...state.logs, ...action.logs].slice(0, state.config.maxLogs) };
+            return {
+                ...state,
+                logs: [...state.logs, ...action.logs].slice(0, state.config.maxLogs),
+                unreadCount: state.unreadCount + action.logs.length
+            };
         case 'CLEAR_LOGS':
             return { ...state, logs: [], unreadCount: 0 };
         case 'SET_CONFIG':

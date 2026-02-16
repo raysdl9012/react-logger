@@ -2,23 +2,31 @@
 
 A professional, high-performance visual logging system for **Ionic React** applications. Monitor logs, errors, and JSON objects in real-time with a beautiful floating UI that works seamlessly on **iOS**, **Android**, and **Web**.
 
-![npm version](https://img.shields.io/npm/v/react-logger-app)
-![license](https://img.shields.io/npm/l/react-logger-app)
-![downloads](https://img.shields.io/npm/dm/react-logger-app)
+---
+
+### Created by **Reinner Steven Daza Leiva**
+**Contact & Support:** [reivium.com](https://reivium.com/)
+
+---
+
+[![npm version](https://img.shields.io/npm/v/react-logger-app)](https://www.npmjs.com/package/react-logger-app)
+[![license](https://img.shields.io/npm/l/react-logger-app)](https://github.com/raysdl9012/react-logger/blob/main/LICENSE)
+[![downloads](https://img.shields.io/npm/dm/react-logger-app)](https://www.npmjs.com/package/react-logger-app)
+
+## 🚀 Why ReactLoggerApp?
+
+Debugging on mobile devices is hard. Console logs are often inaccessible or require complex setups. **ReactLoggerApp** brings the developer console directly to your app with a premium "Liquid Glass" interface. It's designed specifically for production-grade Ionic React apps where you need to see exactly what's happening on the device without connecting a debugger.
 
 ## ✨ Features
 
-- 🐞 **Three Log Levels**: Debug, Error, and Object
-- � **Mobile-First Design**: Optimized for iOS and Android (WebView compatible)
-- 🎨 **Liquid Glass UI**: Premium glassmorphism design with neon accents
-- 🖱️ **Draggable Floating Button**: Minimizable, repositionable trigger
-- 📦 **JSON Tree Viewer**: Expandable visualization for complex objects
-- 💾 **Persistent Storage**: Save logs across sessions (localStorage/IndexedDB)
-- 🔍 **Search & Filters**: Quickly find specific logs or filter by level
-- 📥 **Export Logs**: Download as JSON files
-- 🚀 **Virtualized List**: Handles thousands of logs without performance loss
-- 🌐 **Cross-Platform**: Works in React components and TypeScript classes
-- 🎯 **Zero Dependencies**: Lightweight with minimal peer dependencies
+- 🐞 **Three Log Levels**: Debug, Error (with stack traces), and Object (interactive JSON viewer).
+- 🎨 **Liquid Glass UI**: Stunning glassmorphism design that looks premium on any app.
+- 🖱️ **Draggable Floating UI**: Reposition the trigger button anywhere; it remembers its position.
+- 💾 **Persistent History**: Save logs across app restarts using LocalStorage or IndexedDB.
+- 🌐 **Cross-Platform**: Optimized for iOS Safari, Android WebViews, and desktop browsers.
+- 🚀 **Virtualized Performance**: Easily handle thousands of logs with zero lag.
+- 🔍 **Real-time Filtering**: Search through logs or filter by severity level instantly.
+- 📥 **One-Click Export**: Download your entire log history as a formatted JSON file.
 
 ## 📦 Installation
 
@@ -26,227 +34,74 @@ A professional, high-performance visual logging system for **Ionic React** appli
 npm install react-logger-app
 # or
 yarn add react-logger-app
-# or
-pnpm add react-logger-app
 ```
 
-## 🚀 Quick Start
+## �️ Quick Setup
 
-### 1. Setup Provider
-
-Wrap your application with `LoggerProvider` and add `LoggerViewer` (typically in `App.tsx`):
+### 1. Wrap your App
+Add the `LoggerProvider` and `LoggerViewer` at the root of your application (usually `App.tsx`):
 
 ```tsx
 import { LoggerProvider, LoggerViewer } from 'react-logger-app';
-import { IonApp } from '@ionic/react';
 
-const App: React.FC = () => (
-  <LoggerProvider config={{ persistence: true, maxLogs: 1000 }}>
+const App = () => (
+  <LoggerProvider config={{ persistence: true }}>
     <IonApp>
-      {/* Your app routes and components */}
+      <YourAppComponent />
       <LoggerViewer />
     </IonApp>
   </LoggerProvider>
 );
-
-export default App;
 ```
 
-### 2. Use in React Components
+### 2. Start Logging
+Use the `useLogger` hook in your components:
 
 ```tsx
 import { useLogger } from 'react-logger-app';
 
-const MyComponent: React.FC = () => {
+const MyPage = () => {
   const { debug, error, object } = useLogger();
 
-  const handleAction = async () => {
-    debug('Process started');
-    
+  const handleAction = () => {
+    debug('User clicked action');
     try {
-      const response = await fetchData();
-      object(response, 'API Response');
+      // ... logic
+      object(result, 'Op Result');
     } catch (e) {
-      error(e as Error);
+      error(e, 'Failed to process');
     }
   };
-
-  return <button onClick={handleAction}>Run Action</button>;
 };
 ```
 
-### 3. Use in TypeScript Classes
-
-Perfect for services, utilities, and business logic outside React:
+### 3. Log from Anywhere
+Even outside React components (Services, Utilities, Redux middleware):
 
 ```tsx
 import { Logger } from 'react-logger-app';
 
-class AuthService {
-  async login(credentials: Credentials) {
-    Logger.debug('Login attempt started', 'AuthService');
-    
-    try {
-      const user = await api.authenticate(credentials);
-      Logger.object(user, 'Authenticated User');
-      return user;
-    } catch (error) {
-      Logger.error(error as Error);
-      throw error;
-    }
-  }
-}
+Logger.debug('Global event happened');
 ```
 
-> **Note**: Logs sent via `Logger` before the provider mounts are buffered and displayed once the UI is ready.
-
-## ⚙️ Configuration Options
+## ⚙️ Configuration
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `persistence` | `boolean` | `false` | Enable log storage between sessions |
 | `persistenceDriver` | `'localStorage'` \| `'indexedDB'` | `'localStorage'` | Storage backend for persisted logs |
 | `maxLogs` | `number` | `500` | Maximum number of logs to retain |
-| `onLogAdded` | `(log: LogEntry) => void` | `undefined` | Callback fired when a log is added |
 
-### Example with Custom Config
+## 👨‍💻 Author
 
-```tsx
-<LoggerProvider 
-  config={{
-    persistence: true,
-    persistenceDriver: 'indexedDB',
-    maxLogs: 2000,
-    onLogAdded: (log) => {
-      if (log.level === 'ERROR') {
-        // Send to analytics or crash reporting
-        analytics.trackError(log);
-      }
-    }
-  }}
->
-  <App />
-</LoggerProvider>
-```
-
-## 📱 Platform Support
-
-### ✅ Fully Tested On:
-- **iOS** (Safari, WKWebView)
-- **Android** (Chrome WebView, System WebView)
-- **Web** (Chrome, Safari, Firefox, Edge)
-
-### 🔧 Android-Specific Optimizations (v1.1.3+)
-- Solid background fallback for WebView compatibility
-- Disabled `backdrop-filter` on mobile to prevent rendering artifacts
-- Conditional rendering to avoid z-index conflicts
-- No animations on small screens for smoother performance
-
-## 🎨 UI Features
-
-### Floating Button
-- **Draggable**: Reposition anywhere on screen
-- **Badge Counter**: Shows unread log count
-- **Auto-hide**: Disappears when panel is open (prevents visual conflicts)
-- **Persistent Position**: Remembers location after drag
-
-### Log Panel
-- **Full-screen on Mobile**: Optimized for small screens
-- **Virtualized Scrolling**: Smooth performance with 1000+ logs
-- **Search Bar**: Filter logs by message or title
-- **Level Filters**: Show only DEBUG, ERROR, or OBJECT logs
-- **Export Button**: Download logs as JSON
-- **Clear Button**: Remove all logs with confirmation
-
-## 📖 API Reference
-
-### `useLogger()` Hook
-
-Returns an object with the following methods:
-
-```tsx
-const {
-  debug,      // (message: string) => void
-  error,      // (message: string | Error) => void
-  object,     // (obj: any, title?: string) => void
-  clear,      // () => void
-  exportLogs, // () => LogEntry[]
-  logs,       // LogEntry[]
-  unreadCount // number
-} = useLogger();
-```
-
-### `Logger` Static Class
-
-For use outside React components:
-
-```tsx
-Logger.debug(message: string, title?: string): void
-Logger.error(error: Error | string, title?: string): void
-Logger.object(data: any, title?: string): void
-```
-
-### `LogEntry` Type
-
-```tsx
-interface LogEntry {
-  id: string;
-  timestamp: string;
-  level: 'DEBUG' | 'ERROR' | 'OBJECT';
-  message: string;
-  title?: string;
-  data?: any;
-  stack?: string;
-}
-```
-
-## 🛠️ Local Development
-
-To run the demo app and test the logger:
-
-```bash
-# 1. Build the library
-npm run build
-
-# 2. Run the example app
-cd example
-npm install
-npm run dev
-
-# 3. Open http://localhost:5173
-```
-
-## 🐛 Troubleshooting
-
-### Button not visible on Android
-- **Solution**: Update to v1.1.3+ which includes Android-specific fixes
-- Ensure `LoggerViewer` is placed inside `IonApp` or at root level
-- Check z-index conflicts with other fixed/absolute positioned elements
-
-### Logs not persisting
-- Verify `persistence: true` in config
-- Check browser storage permissions
-- For IndexedDB, ensure browser supports it
-
-### Performance issues with many logs
-- Reduce `maxLogs` config value
-- Use `clear()` periodically
-- Enable persistence and restart app to clear memory
+**Reinner Steven Daza Leiva**
+Passionate about building high-quality tools for developers.
+Connect with me: [reivium.com](https://reivium.com/)
 
 ## 📄 License
 
-MIT © [Reinner Leiva](https://github.com/raysdl9012)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## 📦 Package Info
-
-- **Package**: `react-logger-app`
-- **Repository**: [github.com/raysdl9012/react-logger](https://github.com/raysdl9012/react-logger)
-- **NPM**: [npmjs.com/package/react-logger-app](https://www.npmjs.com/package/react-logger-app)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-Made with ❤️ for the Ionic React community
+**Download it now and take your Ionic debugging to the next level!** 🚀

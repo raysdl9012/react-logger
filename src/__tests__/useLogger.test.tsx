@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright (c) 2026 Reinner Steven Daza Leiva
+ * Contact: https://reivium.com/
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { renderHook, act } from '@testing-library/react';
 import { useLogger } from '../hooks/useLogger';
 import { LoggerProvider } from '../context/LoggerContext';
@@ -55,5 +64,17 @@ describe('useLogger', () => {
         });
 
         expect(result.current.logs).toHaveLength(0);
+    });
+
+    it('should export logs', () => {
+        const { result } = renderHook(() => useLogger(), { wrapper });
+        const spyAppend = jest.spyOn(document.body, 'appendChild').mockImplementation((node) => node);
+
+        act(() => {
+            result.current.exportLogs();
+        });
+
+        expect(spyAppend).toHaveBeenCalled();
+        spyAppend.mockRestore();
     });
 });

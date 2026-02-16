@@ -1,4 +1,13 @@
 /**
+ * @license
+ * Copyright (c) 2026 Reinner Steven Daza Leiva
+ * Contact: https://reivium.com/
+ * 
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
  * Supported severity levels for logging.
  */
 export type LogLevel = 'DEBUG' | 'ERROR' | 'OBJECT';

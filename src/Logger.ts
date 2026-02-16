@@ -1,3 +1,12 @@
+/**
+ * @license
+ * Copyright (c) 2026 Reinner Steven Daza Leiva
+ * Contact: https://reivium.com/
+ * 
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { LogEntry, LogLevel } from './types';
 
 type LoggerDispatch = (action: { type: 'ADD_LOG'; log: LogEntry } | { type: 'CLEAR_LOGS' }) => void;
