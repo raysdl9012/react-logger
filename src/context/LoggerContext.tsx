@@ -29,6 +29,7 @@ type LoggerAction =
 const initialState: LoggerState = {
     logs: [],
     config: {
+        enabled: true,
         persistence: false,
         persistenceDriver: 'localStorage',
         maxLogs: 500,
@@ -102,6 +103,11 @@ export const LoggerProvider: React.FC<{ children: React.ReactNode; config?: Logg
             });
         }
     }, [state.config.persistence, state.config.persistenceDriver]);
+
+    // Sync enabled state from config
+    useEffect(() => {
+        Logger.enabled = state.config.enabled ?? true;
+    }, [state.config.enabled]);
 
     // Persist logs when they change
     useEffect(() => {

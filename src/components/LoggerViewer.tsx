@@ -18,7 +18,11 @@ import { LogPanel } from './LogPanel';
  * Should be placed at the root level of your application.
  */
 export const LoggerViewer: React.FC = () => {
-    const { isPanelOpen } = useLoggerContext();
+    const { state, isPanelOpen } = useLoggerContext();
+
+    if (state.config.enabled === false) {
+        return null;
+    }
 
     return (
         <>

@@ -36,6 +36,8 @@ export interface LogEntry {
  * Configuration options for the Logger.
  */
 export interface LoggerConfig {
+    /** Whether the logger is enabled. If false, no logs are collected and UI is hidden. Default: true */
+    enabled?: boolean;
     /** Whether to persist logs between sessions. Default: false */
     persistence?: boolean;
     /** Choice of storage driver. Default: 'localStorage' */

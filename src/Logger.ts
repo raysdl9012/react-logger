@@ -19,6 +19,7 @@ export class Logger {
     private static dispatch: LoggerDispatch | null = null;
     private static logBuffer: LogEntry[] = [];
     private static onLogAddedCallback?: (log: LogEntry) => void;
+    static enabled: boolean = true;
 
     /**
      * Internal method to initialize the dispatcher from the React context.
@@ -48,6 +49,8 @@ export class Logger {
     }
 
     private static addLog(log: LogEntry) {
+        if (!this.enabled) return;
+
         if (this.dispatch) {
             this.dispatch({ type: 'ADD_LOG', log });
             this.onLogAddedCallback?.(log);
